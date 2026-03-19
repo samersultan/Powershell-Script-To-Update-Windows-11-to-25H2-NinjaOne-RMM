@@ -1,4 +1,9 @@
-# Windows 11 25H2 Silent Upgrade Script (NinjaOne / PowerShell)
+# NinjaOne Automation - Windows 11 25H2 Upgrade Script
+
+## Script Name
+`NinjaOne-Automation-Update-Win11-25h2.ps1`
+
+---
 
 ## Overview
 This PowerShell script targets Windows 11 devices to upgrade to **version 25H2** using Windows Update for Business policies. It runs silently, triggers the update process, and forces a reboot when the system is ready.
@@ -11,31 +16,31 @@ Designed for use with:
 ---
 
 ## Features
-- Targets Windows 11 using build detection (not ProductName)
-- Sets Windows Update for Business policy to 25H2
-- Runs fully silent (no user interaction)
+- Uses build-based detection (Windows 11 = Build 22000+)
+- Sets Windows Update target release to **25H2**
+- Fully silent execution (no user interaction)
 - Triggers scan, download, and install via UsoClient
-- Waits up to 30 minutes for staging
+- Waits up to 30 minutes for update staging
 - Forces reboot automatically
 
 ---
 
 ## Requirements
 - Windows 11 device (Build 22000 or higher)
-- Administrator privileges
+- Administrator or SYSTEM privileges
 - Internet access or configured update source (Microsoft Update / WSUS / WUfB)
-- Minimum recommended 25 GB free disk space
+- Recommended: 25 GB+ free disk space
 
 ---
 
 ## How It Works
 1. Detects OS using build number
 2. Sets registry policy:
-   - ProductVersion = Windows 11
-   - TargetReleaseVersion = Enabled
-   - TargetReleaseVersionInfo = 25H2
+   - `ProductVersion = Windows 11`
+   - `TargetReleaseVersion = 1`
+   - `TargetReleaseVersionInfo = 25H2`
 3. Forces Group Policy refresh
-4. Starts Windows Update services
+4. Ensures Windows Update services are running
 5. Triggers:
    - Scan
    - Download
@@ -47,18 +52,20 @@ Designed for use with:
 
 ## Usage (NinjaOne)
 
-1. Go to:
+1. Navigate to:  
    **Administration > Library > Automation > Scripts**
 
-2. Create a new PowerShell script and paste the code
+2. Create a new PowerShell script:
+   - Name: `NinjaOne-Automation-Update-Win11-25h2.ps1`
+   - Paste script contents
 
 3. Configure:
    - Run As: **System**
    - Max Runtime: **60–120 minutes**
 
 4. Deploy:
-   - Run on demand
-   - Or schedule via automation policy
+   - Run on demand  
+   - Or assign via automation policy
 
 ---
 
@@ -67,4 +74,4 @@ Designed for use with:
 Run PowerShell as Administrator:
 
 ```powershell
-.\Win11-25H2-Upgrade.ps1
+.\NinjaOne-Automation-Update-Win11-25h2.ps1
